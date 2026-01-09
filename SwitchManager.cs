@@ -73,8 +73,8 @@ public class SwitchManager
         try
         {
             var state = enable ? "1" : "0";
-            var requestBody = $"portid={portNumber}&state={state}&speed=7&flowcontrol=7&apply=Apply";
-            var response = await _webClient.Post("/port_setting.cgi", requestBody);
+            // Use GET with valid parameters: speed=1 (Auto), flowcontrol=0 (Off)
+            var response = await _webClient.Get($"/port_setting.cgi?portid={portNumber}&state={state}&speed=1&flowcontrol=0&apply=Apply");
             return !string.IsNullOrEmpty(response);
         }
         catch (Exception ex)
